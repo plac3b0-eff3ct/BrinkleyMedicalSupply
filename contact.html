@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Brinkley Medical Emporium</title>
+<link rel="icon" href="https://i.imgur.com/rHeykdj.png">
+
+<style>
+:root {
+    --blue: #5f7c8a;
+    --light-blue: #d6e2e8;
+    --tan: #e8d8b0;
+    --dark-tan: #cbb98c;
+}
+body {
+    margin: 0;
+    font-family: 'Libre Baskerville', serif;
+    background: var(--light-blue);
+    scroll-behavior: smooth;
+}
+body {
+    header h1 {
+    font-family: 'Playball', cursive;
+    color: var(--blue);
+    margin-bottom: 20px;
+    text-shadow:
+    -1px -1px 0 var(--dark-tan),
+    1px -1px 0 var(--dark-tan),
+    -1px 1px 0 var(--dark-tan),
+    1px 1px 0 var(--dark-tan);
+}
+}
+
+/* HEADER */
+header {
+    background-image: url("https://i.imgur.com/0XP6xdi.png");
+    background-size: cover;
+    background-position: center;
+    height: 120px;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+header h1 {
+    font-family: 'Playball', cursive;
+    color: var(--tan);
+}
+
+/* NAV */
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--tan);
+}
+
+/* SECTION */
+.section {
+    padding: 2rem;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* FORM */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid var(--dark-tan);
+    border-radius: 6px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--blue);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* INFO BOX */
+.info-box {
+    margin-top: 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--dark-tan);
+}
+img {
+    margin-top: 10px;
+    position: center;
+    border-radius: 10px;
+    border: 1px solid var(--dark-tan);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Brinkley Medical Emporium</h1>
+    <nav>
+        <a href="homepage.html">Home</a>
+        <a href="index.html">Products</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+        
+    <section class="section">
+    
+    <div class="info-box">
+        <h3>Office Information</h3>
+        <p><strong>Location:</strong> East LaPorte River Access Park, NC-107, Cullowhee, NC 28723</p>
+        <p><strong>Phone:</strong> (555) 123-4567</p>
+        <p><strong>Email:</strong> brinkleymedical@webmail.com</p>
+    </div>
+    
+    <img 
+    src="https://i.imgur.com/T2UrFpZ.jpeg/300x150" 
+    alt="Product Image"
+    style="width:100%; height:600px;"
+    >
+    <h2>Submit Radio Show Request</h2>
+
+    <form onsubmit="submitForm(event)">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+<script>
+function submitForm(e) {
+    e.preventDefault();
+    alert("Message sent! We will respond shortly.");
+}
+</script>
+
+</body>
+</html>
