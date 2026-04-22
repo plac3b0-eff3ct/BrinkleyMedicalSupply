@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brinkley Medical Emporium</title>
+<link rel="icon" href="https://i.imgur.com/rHeykdj.png">
+
+<style>
+:root {
+    --blue: #5f7c8a;
+    --light-blue: #d6e2e8;
+    --tan: #e8d8b0;
+    --dark-tan: #cbb98c;
+}
+
+body {
+    margin: 0;
+    font-family: 'Libre Baskerville', serif;
+    background: var(--light-blue);
+    scroll-behavior: smooth;
+}
+
+/* HEADER */
+header {
+    background-image: url("https://i.imgur.com/0XP6xdi.png");
+    background-size: cover;      
+    background-position: center; 
+    background-repeat: no-repeat;
+    height: 100px;              
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
+
+header h1 {
+    font-family: 'Playball', cursive;
+    color: var(--blue);
+    margin-bottom: 20px;
+    text-shadow:
+    -1px -1px 0 var(--dark-tan),
+    1px -1px 0 var(--dark-tan),
+    -1px 1px 0 var(--dark-tan),
+    1px 1px 0 var(--dark-tan);
+}
+
+/* NAV */
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--tan);
+}
+
+/* CART BUTTON */
+.cart {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--tan);
+    color: black;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* HERO */
+.hero {
+    background: var(--tan);
+    padding: 2rem;
+    text-align: center;
+}
+
+/* SECTIONS */
+section {
+    padding: 2rem;
+}
+
+/* GRID */
+.container {
+    padding: 2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+/* CARD */
+.card {
+    background: white;
+    border: 2px solid var(--dark-tan);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.card h3 {
+    font-family: 'Playball', cursive;
+}
+
+.price {
+    color: var(--blue);
+    font-weight: bold;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px;
+    width: 100%;
+    background: var(--blue);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* CART MODAL */
+.cart {
+}
+
+.card {
+    background: white;
+    border: 2px solid var(--dark-tan);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px;
+    width: 100%;
+    background: var(--blue);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.cart-modal {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    padding: 1rem;
+    transition: 0.3s;
+    overflow-y: auto;
+}
+
+.cart-modal.active { right: 0; }
+
+.cart-item {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.total { font-weight: bold; margin-top: 15px; }
+
+.close-cart {
+    font-size: 20px;
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+}
+
+
+/* CLOSE BUTTON */
+.close-cart {
+    font-size: 20px;
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+}
+
+.checkout-modal {
+    display: none;
+    position: fixed;
+    z-index: 1100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+.checkout-modal.active {
+    display: block;
+}
+
+.checkout-content {
+    background: white;
+    width: 400px;
+    margin: 8% auto;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.terms-box {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+/*MORE INFO POP UP*/
+.product-modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+.product-modal.active {
+    display: block;
+}
+
+.modal-content {
+    background: white;
+    width: 350px;
+    margin: 10% auto;
+    padding: 1rem;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/*CALENDAR POP UP*/
+.appointment-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+.appointment-modal.active {
+    display: block;
+}
+
+.appointment-content {
+    background: white;
+    width: 350px;
+    margin: 8% auto;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.appointment-content label {
+    display: block;
+    margin-top: 10px;
+}
+
+.appointment-content input,
+.appointment-content select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.appt-table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+.appt-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+}
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Brinkley Medical Emporium</h1>
+
+    <nav>
+        <a href="homepage.html">Home</a>
+        <a href="index.html">Products</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="cart" onclick="toggleCart()">
+        🛒 Cart (<span id="cart-count">0</span>)
+    </div>
+</header>
+
+<!-- HOME -->
+<section id="home" class="hero">
+    <h2>Vitality • Vigor • Longevity</h2>
+    <p>“NEW LIFE IN GLANDS – DR. BRINKLEY’S PATIENTS HERE SHOW IMPROVEMENTS – MANY VICTIMS OF ‘INCURABLE’ DISEASES ARE CURED – TWELVE HUNDRED OPERATIONS ARE ALL SUCCESSFUL.”</p>
+</section>
+
+<!-- PRODUCTS -->
+<div class="container">
+
+    <!-- PRODUCTS -->
+    <h2 class="section-title">Featured Products</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://i.imgur.com/noRVUmu.png/300x150">
+            <div class="card-content">
+                <h3>Brinkleys Pharmecuticals</h3>
+                <p>Promotes longevity and overall wellness.</p>
+                <div class="price">$57.99</div>
+                <button onclick="openModal(
+                'Brinkleys Pharmecuticals',
+                57.99,
+                'Switch all of your pharmecutical needs to Brinkleys, where everyone is definitely a real pharmecist with a real degree.',
+                'https://i.imgur.com/noRVUmu.png/300x150')">
+                View Details
+                </button>
+                <button onclick="addToCart('Brinkleys Pharmecuticals', 57.99)">
+                Add to Cart
+                </button>
+            </div>
+        </div>
+        
+         <div class="card">
+          <img src="https://i.imgur.com/Mz4eNU1.png/300x150">
+            <div class="card-content">
+                <h3>“Miracle-drug” Salvarsan tonic</h3>
+                <p>Herbal formula designed to restore energy.</p>
+                <div class="price">$159.99</div>
+                <button onclick="openModal(
+                '“Miracle-drug” Salvarsan tonic',
+                159.99,
+                'A revitalizing tonic inspired by early experimental treatments. Marketed to restore vigor and vitality.',
+                'May possess unnatural dyes, please do not consume, put near orfices, or on skin.'
+                'Side effects can include an upset stomach, cancer, and death.'
+                'https://i.imgur.com/Mz4eNU1_d.png?maxwidth=520&shape=thumb&fidelity=high/300x150')">
+                View Details
+                </button>
+                <button onclick="addToCart('Miracle-drug Salvarsan tonic', 159.99)">
+                Add to Cart
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://i.imgur.com/x2Lyo32.jpeg/300x150">
+            <div class="card-content">
+                <h3>Collectors Addition John Brinkly Merchendise</h3>
+                <p>Posters, bottles, comics, and more, Just remember to vote brinkley</p>
+                <div class="price">$19.99</div>
+                <button onclick="openModal(
+                'Collectors Addition John Brinkly Merchendise',
+                19.99,
+                'Support your favorite soon to be Kansas governer! A variety of merchandise is avialable to show your unwavering pride.'
+                'Goat themed posters, paper weights, glasses, and liquour,'
+                'https://i.imgur.com/x2Lyo32.jpeg/300x150')">
+                View Details
+                </button>
+                <button onclick="addToCart('Collectors Addition John Brinkly Merchendis', 19.99)">
+                Add to Cart
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SERVICES -->
+    <h2 class="section-title" style="margin-top:2rem;">Services Offered</h2>
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-content">
+                <h3>Goat Gland Operation</h3>
+                <p>Cure all! From male vitilaty to insomnia to cancer.</p>
+                <button onclick="openAppointment('Goat Gland Operation')">
+                 Book Appointment
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <h3>Electro-Medicine Injections</h3>
+                <p>Restore your masculine vigor.</p>
+                <button onclick="openAppointment('Electro-Medicine Injections')">
+                Book Appointment
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <h3>Consultation</h3>
+                <p>Personalized health evalution by John R. Brinkley himself.</p>
+                <button onclick="openAppointment('Consultation')">
+                Book Appointment
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="product-modal" id="product-modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">✖</span>
+        <h2 id="modal-title"></h2>
+        <img id="modal-img" src="" alt="" style="width:100%; height:200px; object-fit:cover;">
+        <p id="modal-desc"></p>
+        <div class="price" id="modal-price"></div>
+        <button id="modal-btn">Add to Cart</button>
+    </div>
+</div>
+
+<div class="appointment-modal" id="appointment-modal">
+    <div class="appointment-content">
+        <span class="close-modal" onclick="closeAppointment()">✖</span>
+
+        <h2 id="service-title">Book Appointment</h2>
+
+        <!-- Calendar -->
+        <label>Select Date:</label>
+        <input type="date" id="appt-date">
+
+        <!-- Time -->
+        <label>Select Time:</label>
+        <select id="appt-time">
+            <option>9:00 AM</option>
+            <option>11:00 AM</option>
+            <option>1:00 PM</option>
+            <option>3:00 PM</option>
+        </select>
+
+        <!-- Info Table -->
+        <h3>Appointment Summary</h3>
+        <table class="appt-table">
+            <tr><td>Service:</td><td id="summary-service"></td></tr>
+            <tr><td>Date:</td><td id="summary-date"></td></tr>
+            <tr><td>Time:</td><td id="summary-time"></td></tr>
+        </table>
+
+        <button onclick="confirmAppointment()">Confirm Appointment</button>
+    </div>
+</div>
+
+</div>
+
+<!-- INFORMATION -->
+<section id="info">
+    <h2>Disclaimer</h2>
+    <p>
+        I am not a licensed medical doctor, physician, or healthcare professional. Any information, advice, or recommendations provided are for informational and educational purposes onlyand should not be considered medical advice. Always consult a qualified healthcare provider for diagnosis, treatment, or medical concerns.
+    </p>
+</section>
+
+<!-- CART -->
+<div class="cart-modal" id="cart-modal">
+    <span class="close-cart" onclick="toggleCart()">✖</span>
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <div class="total">Total: $<span id="cart-total">0</span></div>
+    <button onclick="openCheckout()">Proceed to Checkout</button>
+</div>
+
+<div class="checkout-modal" id="checkout-modal">
+    <div class="checkout-content">
+        <span class="close-modal" onclick="closeCheckout()">✖</span>
+
+        <h2>Terms & Conditions</h2>
+
+        <div class="terms-box">
+            <p>
+                (For the Use, Handling, Ownership, or Accidental Activation of the Product)
+Last Updated: At some point. Possibly before shipment. Possibly after.
+
+1. Acceptance of Terms
+By opening the package, thinking about opening the package, or making prolonged eye contact with the package, you (“User”) agree to be bound by these Terms of Service (“Terms”). If you do not agree, you must immediately reseal the package and place it at least 30 feet away from any living structure. Failure to do so may be interpreted as enthusiastic consent.
+
+2. Product Description
+The product (“Item”) is provided “as is,” “as available,” and occasionally “as humming faintly.” The Item may:
+Emit light, sound, heat, cold, or other less easily categorized phenomena
+Exhibit awareness of its surroundings, including but not limited to your sleep schedule
+Change weight, texture, or intent without prior notice
+Respond to names you did not assign to it
+The manufacturer makes no guarantees regarding the Item’s purpose, stability, or alignment with known physical laws.
+
+3. Proper Usage
+The User agrees to operate the Item only under the following conditions:
+In a well-ventilated area, preferably one with multiple exits
+While wearing protective gear, including but not limited to gloves, goggles, and a healthy sense of skepticism
+During daylight hours, unless instructed otherwise by the Item
+Do NOT:
+Feed the Item after midnight
+Ask the Item direct questions about the future
+Attempt to open secondary compartments that were not visible upon purchase
+Allow the Item to “get comfortable”
+
+4. Safety Disclaimer
+Use of the Item may result in:
+Minor side effects (e.g., dizziness, mild existential unease)
+Moderate side effects (e.g., time discrepancies, unexplained whispers)
+Severe side effects (e.g., spatial inconsistencies, being politely asked to leave your own home by something that sounds like you)
+If you experience any of the above, discontinue use immediately and place the Item inside a sealed container. If the container becomes warm, cold, or begins knocking from the inside, do not open it.
+
+5. Liability Waiver
+By using the Item, the User agrees that the manufacturer, distributor, and any associated entities are not responsible for:
+Damage to property, including but not limited to walls, floors, and continuity of reality
+Loss of personal items, including keys, pets, or entire rooms
+Changes in the behavior of mirrors
+Any agreements, verbal or otherwise, made between the User and the Item
+Under no circumstances should the Item be considered legally accountable.
+
+6. Warranty Information
+The Item comes with a limited warranty valid until:
+The first activation
+The first anomaly
+The first time it moves on its own
+Whichever occurs first.
+Warranty claims will not be honored if the User:
+Looked inside when explicitly told not to
+Ignored warning labels that appeared after purchase
+Attempted to return the Item after it learned your name
+
+7. Returns and Refunds
+Returns are accepted within 7 days of delivery, provided that:
+The Item remains in its original state
+The Item has not bonded with the User
+The Item does not resist being packaged
+If the Item refuses to be returned, the User must respect its decision.
+Refunds may be issued in the form of store credit, alternate items, or a handwritten apology.
+
+8. Privacy Policy
+The Item may collect data including but not limited to:
+Movement patterns
+Speech
+Dreams
+This information may be used to “improve user experience” or “prepare.”
+Data collected by the Item is not accessible, deletable, or necessarily stored in a way that can be described.
+
+9. Updates and Modifications
+The Item may update itself without notice. Updates may include:
+New features
+New sounds
+New intentions
+Users are not permitted to opt out of updates.
+
+10. Termination
+This agreement remains in effect until:
+The User discontinues use
+The Item discontinues the User
+Mutual understanding is reached
+
+11. Final Notice
+If at any point the Item begins to:
+Repeat phrases you have not said aloud
+Appear in locations you did not place it
+Refer to itself in the plural
+You are advised to remain calm, avoid sudden movements, and under no circumstances acknowledge that you have noticed.
+
+By continuing, you confirm that you understand the risks, accept the uncertainties, and will not ask too many questions.
+Thank you for your purchase.
+
+            </p>
+        </div>
+
+        <label>
+            <input type="checkbox" id="terms-check">
+            I agree to the Terms & Conditions
+        </label>
+
+        <button onclick="completeCheckout()">Accept & Purchase</button>
+    </div>
+</div>
+
+<script>
+let cart = [];
+
+function addToCart(name, price) {
+    cart.push({name, price});
+    updateCart();
+}
+
+function updateCart() {
+    document.getElementById("cart-count").innerText = cart.length;
+
+    let itemsHTML = "";
+    let total = 0;
+
+    cart.forEach(item => {
+        itemsHTML += `<div class='cart-item'>${item.name} - $${item.price}</div>`;
+        total += item.price;
+    });
+
+    document.getElementById("cart-items").innerHTML = itemsHTML;
+    document.getElementById("cart-total").innerText = total.toFixed(2);
+}
+
+function toggleCart() {
+    document.getElementById("cart-modal").classList.toggle("active");
+}
+</script>
+
+<script>
+function openModal(name, price, desc, img) {
+    document.getElementById("modal-title").innerText = name;
+    document.getElementById("modal-desc").innerText = desc;
+    document.getElementById("modal-price").innerText = "$" + price;
+    document.getElementById("modal-img").src = img;
+    document.getElementById("modal-btn").onclick = function() {
+        addToCart(name, price);
+    };
+
+    document.getElementById("product-modal").classList.add("active");
+}
+
+function closeModal() {
+    document.getElementById("product-modal").classList.remove("active");
+}
+</script>
+
+<script>
+let selectedService = "";
+
+function openAppointment(serviceName) {
+    selectedService = serviceName;
+
+    document.getElementById("service-title").innerText = "Book: " + serviceName;
+    document.getElementById("summary-service").innerText = serviceName;
+
+    document.getElementById("appointment-modal").classList.add("active");
+}
+
+function closeAppointment() {
+    document.getElementById("appointment-modal").classList.remove("active");
+}
+
+function confirmAppointment() {
+    const date = document.getElementById("appt-date").value;
+    const time = document.getElementById("appt-time").value;
+
+    document.getElementById("summary-date").innerText = date;
+    document.getElementById("summary-time").innerText = time;
+
+    if (!date) {
+        alert("Please select a date.");
+        return;
+    }
+
+    alert(`Appointment booked for ${selectedService} on ${date} at ${time}`);
+    closeAppointment();
+}
+</script>
+
+<script>
+function openCheckout() {
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+    document.getElementById("checkout-modal").classList.add("active");
+}
+
+function closeCheckout() {
+    document.getElementById("checkout-modal").classList.remove("active");
+}
+
+function completeCheckout() {
+    const checked = document.getElementById("terms-check").checked;
+
+    if (!checked) {
+        alert("You must agree to the terms first.");
+        return;
+    }
+
+    alert("Purchase complete! Thank you for your trust in Brinkley Medical Emporium.");
+
+    // reset cart
+    cart = [];
+    updateCart();
+    closeCheckout();
+    toggleCart();
+}
+</script>
+</body>
+</html>
